@@ -13,14 +13,14 @@ const PokedexTool = (props) => {
     }
   }, [props.pokedexs]);
 
-
+  document.title = `Choose a Pokedex!`;
   return (
     <div id={"pokedexsWrapper"}>
       {
         (pokedexs.length > 0) ? pokedexs.map((_) => {
           return (
             <div key={_} className={"pokedexSelector"}>
-              <h3>{_}</h3>
+              <h3>{_.replace(_[0], _[0].toUpperCase()).replace("-", " ")}</h3>
               <button onClick={() => props.setDex(_)}>View</button>
             </div>
           )

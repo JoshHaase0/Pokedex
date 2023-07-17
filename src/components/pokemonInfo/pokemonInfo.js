@@ -46,6 +46,7 @@ const types = {
 const PokemonInfo = (props) => {
 
   const [pokemon, setPokemon] = useState(null);
+  const [style, setStyle] = useState("default");
 
   useEffect(() => {
     updatePokemon(props.pokemon);
@@ -56,14 +57,46 @@ const PokemonInfo = (props) => {
     setPokemon(Pokemon);
   }
 
+
+  const updateStyle = (e) => {
+    setStyle(e.target.value);
+  }
+
   if (pokemon) {
-    console.log(pokemon.sprites.other["official-artwork"].front_default)
+    document.title = `${props.pokemon.replace(props.pokemon[0], props.pokemon[0].toUpperCase())}`
+    let image = "";
+    switch (style) {
+      case "shiny":
+        image = pokemon.sprites.front_shiny;
+        break;
+      case "dream":
+        image = pokemon.sprites.other["dream_world"].front_default;
+        break;
+      case "home":
+        image = pokemon.sprites.other["home"].front_default;
+        break;
+      case "official":
+        image = pokemon.sprites.other["official-artwork"].front_default;
+        break;
+      default:
+        image = pokemon.sprites.front_default;
+        break;
+    }
     return (
         <div id="pokemonInfoWrapper">
             <div id="info">
-                <a onClick={props.back} id="button">&lt;</a>
-                <img src={pokemon.sprites.other["official-artwork"].front_default} id={"pokemonImg"} />
-                <h1>{ pokemon.name }</h1>
+                <div id={"button-wrapper"}>
+                  <a onClick={props.back} id="button">&lt;</a>
+                  <select id="style-selector" onChange={updateStyle}>
+                    <option value="default">Default</option>
+                    <option value="shiny">Shiny</option>
+                    <option value="dream">Dream</option>
+                    <option value="home">Home</option>
+                    <option value="official">Official</option>
+                  </select>
+                </div>
+                <img src={image} id={"pokemonImg"} alt={`${style} ${pokemon.name}`}/>
+                <h1>{ pokemon.name.replace(pokemon.name[0], pokemon.name[0].toUpperCase()) }</h1>
                 <p>N°{ ("000" + pokemon.id).slice(-4) }</p>
                 <div id="types">
                 {

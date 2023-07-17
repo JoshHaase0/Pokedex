@@ -28,6 +28,7 @@ const PokedexTool = (props) => {
   }
 
   if (!moreInfo) {
+      document.title = `${props.pokedex.replace(props.pokedex[0], props.pokedex[0].toUpperCase()).replace("-", " ")}`
       return (
         <div id={"pokemonWrapper"}>
           <div id={"button-wrapper"}>
@@ -37,8 +38,8 @@ const PokedexTool = (props) => {
             (pokemon.length > 0) ? pokemon.map((_) => {
               return (
                 <div key={_} className={"pokemonSelector"} onClick={() => showMoreInfo(_)}>
-                  <h3>{_}</h3>
-                  <button onClick={() => showMoreInfo(_)}>Select</button>
+                  <h3>{_.replace(_[0], _[0].toUpperCase())}</h3>
+                  {/* <button onClick={() => showMoreInfo(_)}>Select</button> */}
                 </div>
               )
             }) : null

@@ -15,7 +15,7 @@
     font-size: 200%;
     padding: 10px 10px 10px 10px;
     color: #000000;
-    position: absolute;
+    position: relative;
     left: 15px;
     transition: color 0.2s, left 0.5s;
 }
@@ -24,6 +24,13 @@
     color: #6f6f6f;
     left: 0px;
     padding: 10px 25px 10px 10px;
+}
+
+#button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 400px;
 }
 
 #stats {
@@ -45,6 +52,7 @@
 }
 #pokemonImg {
     width: 256px;
+    height: 256px;
     margin: 0 auto;
 }
 
@@ -65,7 +73,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 50px;
+    height: 40px;
 }
 
 .type {
@@ -80,6 +88,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-size: 125%;
+    font-weight: bold;
+    color: white;
 }
 
 .bug {
