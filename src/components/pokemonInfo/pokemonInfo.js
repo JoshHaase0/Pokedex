@@ -57,17 +57,68 @@ const PokemonInfo = (props) => {
   }
 
   if (pokemon) {
+    console.log(pokemon.sprites.other["official-artwork"].front_default)
     return (
         <div id="pokemonInfoWrapper">
-            <div id="buttons">
-                <button onClick={props.back}>back</button>
-            </div>
             <div id="info">
-                <img src={pokemon.sprites.front_default} id={"pokemonImg"} />
+                <a onClick={props.back} id="button">&lt;</a>
+                <img src={pokemon.sprites.other["official-artwork"].front_default} id={"pokemonImg"} />
+                <h1>{ pokemon.name }</h1>
+                <p>N°{ ("000" + pokemon.id).slice(-4) }</p>
                 <div id="types">
                 {
-                    pokemon.types.map((_) => <img src={types[_.type.name]} className={"icon"} />)
+                    pokemon.types.map((_) => <div className={`${_.type.name} type`}><img src={types[_.type.name]} className={"icon"} /><p>{_.type.name}</p></div>)
                 }
+                </div>
+                <div id="stats">
+                  <div className={"statBox"}>
+                    <p>Weight</p>
+                    <div>
+                      <p>{ pokemon.weight } kg</p>
+                    </div>
+                  </div>
+                  <div className={"statBox"}>
+                      <p>Height</p>
+                      <div>
+                        <p>{ pokemon.height / 10 } m</p>
+                      </div>
+                  </div>
+                  <div className={"statBox"}>
+                    <p>Health</p>
+                    <div>
+                      <p>{ pokemon.stats[0].base_stat } HP</p>
+                    </div>
+                  </div>
+                  <div className={"statBox"}>
+                    <p>Speed</p>
+                    <div>
+                      <p>{ pokemon.stats[5].base_stat } Spd</p>
+                    </div>
+                  </div>
+                  <div className={"statBox"}>
+                    <p>Attack</p>
+                    <div>
+                      <p>{ pokemon.stats[1].base_stat } Atk</p>
+                    </div>
+                  </div>
+                  <div className={"statBox"}>
+                    <p>Defense</p>
+                    <div>
+                      <p>{ pokemon.stats[2].base_stat } Def</p>
+                    </div>
+                  </div>
+                  <div className={"statBox"}>
+                    <p>Special Attack</p>
+                    <div>
+                      <p>{ pokemon.stats[3].base_stat } S. Atk</p>
+                    </div>
+                  </div>
+                  <div className={"statBox"}>
+                    <p>Special Defense</p>
+                    <div>
+                      <p>{ pokemon.stats[4].base_stat } S. Def</p>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>

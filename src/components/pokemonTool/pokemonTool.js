@@ -30,10 +30,13 @@ const PokedexTool = (props) => {
   if (!moreInfo) {
       return (
         <div id={"pokemonWrapper"}>
+          <div id={"button-wrapper"}>
+            <a onClick={props.back_button} id="back-button">&lt;</a>
+          </div>
           {
             (pokemon.length > 0) ? pokemon.map((_) => {
               return (
-                <div key={_} className={"pokemonSelector"}>
+                <div key={_} className={"pokemonSelector"} onClick={() => showMoreInfo(_)}>
                   <h3>{_}</h3>
                   <button onClick={() => showMoreInfo(_)}>Select</button>
                 </div>

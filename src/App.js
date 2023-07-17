@@ -41,9 +41,13 @@ function App() {
     return pokemon.pokemon_entries.map((_) => _.pokemon_species.name);
   }
 
+  const back_button = () => {
+    setValid(false);
+  }
+
   return (
     <div>
-      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex}/> : <PokemonTool pokedex={selectedDex} module={Pokedex} />}
+      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} /> : <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button}/>}
     </div>
   );
 }
