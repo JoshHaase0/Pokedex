@@ -11,7 +11,7 @@ const PokedexTool = (props) => {
     if (props.pokedexs) {
       setPokedexs(props.pokedexs.map((_) => _.name));
     }
-  }, props.pokedexs);
+  }, [props.pokedexs]);
 
 
   return (
@@ -21,7 +21,7 @@ const PokedexTool = (props) => {
           return (
             <div key={_} className={"pokedexSelector"}>
               <h3>{_}</h3>
-              <button onClick={() => props.logDex(_)}>Select</button>
+              <button onClick={() => props.setDex(_)}>View</button>
             </div>
           )
         }) : null

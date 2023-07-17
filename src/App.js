@@ -4,11 +4,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import PokedexTool from './components/pokedexTool/pokedexTool';
+import PokemonTool from './components/pokemonTool/pokemonTool';
 
 const _Pokedex = require("pokeapi-js-wrapper")
 const Pokedex = new _Pokedex.Pokedex();
-
-import  
 
 function App() {
 
@@ -30,18 +29,21 @@ function App() {
     } else {
       setValid(false);
     }
-  }, pokemonList);
+  }, [pokemonList]);
 
-  const logDex = async (name) => {
-    const pokemon = await Pokedex.getPokedexByName(name);
-    setPokemonList(pokemon.pokemon_entries.map((_) => _.pokemon_species.name))
-    
-    console.log(pokemonList);
+  const setDex = async (name) => {
+    setSelectedDex(name);
+    const pokemon = await Pokedex.getPokedexByName(name)
+    setPokemonList(pokemon.pokemon_entries.map((_) => _.pokemon_species.name));
+  }
+  const getPokemon = async () => {
+    const pokemon = await Pokedex.getPokedexByName(selectedDex);
+    return pokemon.pokemon_entries.map((_) => _.pokemon_species.name);
   }
 
   return (
     <div>
-      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} logDex={logDex}/> : null}
+      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex}/> : <PokemonTool pokedex={selectedDex} module={Pokedex} />}
     </div>
   );
 }
