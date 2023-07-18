@@ -51,7 +51,7 @@ const PokemonInfo = (props) => {
   const [pokemon, setPokemon] = useState(null);
   const [style, setStyle] = useState("default");
   const [altVersions, setAltVersions] = useState([{}]);
-  const [errCheck, setErrCheck] = useState(false);
+  const [errCheck, setErrCheck] = useState(null);
 
   useEffect(() => {
     updatePokemon(props.pokemon);
@@ -66,7 +66,7 @@ const PokemonInfo = (props) => {
       const Pokemon = await props.module.getPokemonByName(name);
       setPokemon(Pokemon);
     } catch (e) {
-      setErrCheck(true);
+      setErrCheck(e.message);
     }
   }
 
@@ -75,7 +75,7 @@ const PokemonInfo = (props) => {
       setStyle(e.target.value);
       e.target.blur();
     } catch (e) {
-      setErrCheck(true);
+      setErrCheck(e.message);
     }
   }
   const setAltStyles = () => {
@@ -96,7 +96,7 @@ const PokemonInfo = (props) => {
       }
       setAltVersions(styles);
     } catch (e) {
-      setErrCheck(true);
+      setErrCheck(e.message);
     }
   }
 
@@ -109,6 +109,7 @@ const PokemonInfo = (props) => {
                   <a onClick={props.back} id="button">&lt;</a>
                 </div>
                 <img src={errImage} id={"pokemonImg"} alt={`We ran into an issue!`}/>
+                <p>{errCheck}</p>
             </div>
         </div>
     )
