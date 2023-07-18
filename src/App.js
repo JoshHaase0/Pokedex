@@ -7,9 +7,7 @@ import PokemonTool from './components/pokemonTool/pokemonTool';
 
 const _Pokedex = require("pokeapi-js-wrapper")
 const Pokedex = new _Pokedex.Pokedex({
-  cache: true, 
   timeout: 5 * 1000,
-  cacheImages: true
 });
 
 function App() {
@@ -39,6 +37,7 @@ function App() {
     const pokemon = await Pokedex.getPokedexByName(name)
     setPokemonList(pokemon.pokemon_entries.map((_) => _.pokemon_species.name));
   }
+
   const getPokemon = async () => {
     const pokemon = await Pokedex.getPokedexByName(selectedDex);
     return pokemon.pokemon_entries.map((_) => _.pokemon_species.name);

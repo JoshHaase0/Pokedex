@@ -50,11 +50,16 @@ const PokemonInfo = (props) => {
 
   const [pokemon, setPokemon] = useState(null);
   const [style, setStyle] = useState("default");
+  const [altVersions, setAltVersions] = useState([{}]);
   const [errCheck, setErrCheck] = useState(false);
 
   useEffect(() => {
     updatePokemon(props.pokemon);
   }, [props.pokemon]);
+
+  useEffect(() => {
+    if (pokemon !== null) { setStyle(pokemon.sprites.front_default); setAltStyles(); }
+  }, [pokemon]);
   
   const updatePokemon = async (name) => {
     try {
@@ -65,9 +70,34 @@ const PokemonInfo = (props) => {
     }
   }
 
-
   const updateStyle = (e) => {
-    setStyle(e.target.value);
+    try {
+      setStyle(e.target.value);
+      e.target.blur();
+    } catch (e) {
+      setErrCheck(true);
+    }
+  }
+  const setAltStyles = () => {
+    try {
+      const styles = [];
+      const gens = Object.keys(pokemon.sprites.versions)
+      for (let i = 0; i < gens.length; i++) {
+        const games = Object.keys(pokemon.sprites.versions[gens[i]]);
+        for (let j = 0; j < games.length; j++) {
+          const sprite = pokemon.sprites.versions[gens[i]][games[j]].front_default;
+          if (sprite && games[j] != "icons") {
+            styles.push({
+              name: games[j].replace(games[j][0], games[j][0].toUpperCase()),
+              sprite: sprite
+            })
+          }
+        }
+      }
+      setAltVersions(styles);
+    } catch (e) {
+      setErrCheck(true);
+    }
   }
 
   if (errCheck) { 
@@ -84,44 +114,37 @@ const PokemonInfo = (props) => {
     )
   } else if (pokemon) {
     document.title = `${props.pokemon.replace(props.pokemon[0], props.pokemon[0].toUpperCase())}`
-    let image = "";
-    switch (style) {
-      case "shiny":
-        image = pokemon.sprites.front_shiny;
-        break;
-      case "dream":
-        image = pokemon.sprites.other["dream_world"].front_default;
-        break;
-      case "home":
-        image = pokemon.sprites.other["home"].front_default;
-        break;
-      case "official":
-        image = pokemon.sprites.other["official-artwork"].front_default;
-        break;
-      default:
-        image = pokemon.sprites.front_default;
-        break;
-    }
-    image = (!image) ? err : image;
     return (
         <div id="pokemonInfoWrapper">
-            <div id="info">
+            <div id="info" >
                 <div id={"button-wrapper"}>
                   <a onClick={props.back} id="button">&lt;</a>
-                  <select id="style-selector" onChange={updateStyle}>
-                    <option value="default">Default</option>
-                    <option value="shiny">Shiny</option>
-                    <option value="dream">Dream</option>
-                    <option value="home">Home</option>
-                    <option value="official">Official</option>
-                  </select>
+                  <div id="style-selector-wrapper">
+                    <select id="style-selector" onChange={updateStyle}>
+                      <option value={pokemon.sprites.front_default}>Default</option>
+                      <option value={pokemon.sprites.front_shiny}>Shiny</option>
+                      <option value={pokemon.sprites.other["dream_world"].front_default}>Dream</option>
+                      <option value={pokemon.sprites.other["home"].front_default}>Home</option>
+                      <option value={pokemon.sprites.other["official-artwork"].front_default}>Official</option>
+                      {
+                        altVersions.map((_) => {
+                          return (
+                            <option value={_.sprite} key={_.name}>{_.name}</option>
+                          )
+                        })
+                      }
+                    </select>
+                  </div>
                 </div>
-                <img src={image} id={"pokemonImg"} alt={`${style} ${pokemon.name}`}/>
+                <div id={"pokemonImgWrapper"}>{
+                  (style.includes("https")) ? <img src={style} id={"pokemonImg"} alt={`${style} ${pokemon.name}`}/> : <img src={err} id={"pokemonImg"} alt={`${pokemon.name} does not have this style`}/>
+                }</div>
+                <div id="bottom-section">
                 <h1>{ pokemon.name.replace(pokemon.name[0], pokemon.name[0].toUpperCase()) }</h1>
                 <p>N°{ ("000" + pokemon.id).slice(-4) }</p>
                 <div id="types">
                 {
-                    pokemon.types.map((_) => <div className={`${_.type.name} type`}><img src={types[_.type.name]} className={"icon"} /><p>{_.type.name}</p></div>)
+                    pokemon.types.map((_) => <div className={`${_.type.name} type`} key={_.type.name}><img src={types[_.type.name]} className={"icon"} /><p>{_.type.name}</p></div>)
                 }
                 </div>
                 <div id="stats">
@@ -175,7 +198,7 @@ const PokemonInfo = (props) => {
                   </div>
                 </div>
             </div>
-        </div>
+        </div></div>
     )
   } else {
     return null;

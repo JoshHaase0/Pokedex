@@ -7,6 +7,11 @@
 }
 #info {
     background-color: rgba(140, 209, 183, 0.85);
+    background-image: url("../../icons/sphere.png");
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: top center;
+
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -14,6 +19,18 @@
     position: relative;
 }
 
+#bottom-section {
+    background-color: whitesmoke;
+    display: inline;
+    padding: 20px;
+    overflow: hidden;
+    border-radius: 25px;
+    display: inline;
+    box-shadow: 0px 0px 24px 10px rgba(0,0,0,0.47);
+}
+#info h1 {
+    margin: 0;
+}
 #button {
     font-size: 200%;
     padding: 10px 10px 10px 10px;
@@ -54,9 +71,23 @@
     flex-wrap: wrap;
 }
 #pokemonImg {
+    max-width: 256px;
+    max-height: 256px;
+    min-width: 192px;
+    min-height: 192px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+#pokemonImgWrapper {
+    text-align: center;
     width: 256px;
     height: 256px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 0 auto;
+    z-index: 2;
 }
 
 .statBox {
@@ -94,6 +125,24 @@
     font-size: 125%;
     font-weight: bold;
     color: white;
+}
+#style-selector {
+    height: 30px;
+    width: 150px;
+    appearance: none;
+    background-image: url("../../icons/pokeball.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding-right: 30px;
+}
+#style-selector:focus {
+    background-image: url("../../icons/pokeball-open.png");
+}
+#style-selector-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .bug {
