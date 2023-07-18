@@ -1,8 +1,9 @@
 .pokedexSelector {
-    width: 110px;
+    width: 165px;
     height: 100px;
     border: 2px solid black;
-    transition: width 0.5s, height 0.5s, background-position 0.3s;
+    border-radius: 25px;
+    transition: background-position 0.3s;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -10,12 +11,21 @@
     padding: 1%;
     background-image: url("../../backgrounds/pokeball.png");
     background-size: 150%;
-    background-position: 20% 80%;
+    background-position: 20% 50%;
     margin-bottom: 2.5%;
 }
 .pokedexSelector:hover {
-    background-position: 80% 0%;
+    background-position: 90% 50%;
     cursor: pointer;
+}
+.pokedexSelector > p {
+    font-weight: 0;
+    font-size: 100%;
+    transition: all 0.3s;
+}
+.pokedexSelector:hover > p {
+    font-weight: 900;
+    font-size: 110%;
 }
 #pokedexsWrapper {
     display: flex;
@@ -26,4 +36,6 @@
     padding: 20px 20px 0 20px;
     background-color: rgba(140, 209, 183, 0.85);
     overflow: auto;
+    height: calc(100vh - 20px);
+    margin: 0 auto;
 }

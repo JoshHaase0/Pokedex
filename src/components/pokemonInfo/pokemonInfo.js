@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import err from '../../icons/err.png';
+import errImage from '../../icons/error.png';
 
 import bug from '../../icons/bug.png';
 import dark from '../../icons/dark.png';
@@ -49,14 +50,19 @@ const PokemonInfo = (props) => {
 
   const [pokemon, setPokemon] = useState(null);
   const [style, setStyle] = useState("default");
+  const [errCheck, setErrCheck] = useState(false);
 
   useEffect(() => {
     updatePokemon(props.pokemon);
   }, [props.pokemon]);
   
   const updatePokemon = async (name) => {
-    const Pokemon = await props.module.getPokemonByName(name);
-    setPokemon(Pokemon);
+    try {
+      const Pokemon = await props.module.getPokemonByName(name);
+      setPokemon(Pokemon);
+    } catch (e) {
+      setErrCheck(true);
+    }
   }
 
 
@@ -64,7 +70,19 @@ const PokemonInfo = (props) => {
     setStyle(e.target.value);
   }
 
-  if (pokemon) {
+  if (errCheck) { 
+    document.title = "Couldn't find the Mew under the truck...";
+    return (
+      <div id="pokemonInfoWrapper">
+            <div id="info">
+                <div id={"button-wrapper"}>
+                  <a onClick={props.back} id="button">&lt;</a>
+                </div>
+                <img src={errImage} id={"pokemonImg"} alt={`We ran into an issue!`}/>
+            </div>
+        </div>
+    )
+  } else if (pokemon) {
     document.title = `${props.pokemon.replace(props.pokemon[0], props.pokemon[0].toUpperCase())}`
     let image = "";
     switch (style) {

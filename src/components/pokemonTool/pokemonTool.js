@@ -9,7 +9,7 @@ const PokedexTool = (props) => {
   const [pokemon, setPokemon] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [moreInfo, setMoreInfo] = useState(false);
-  
+
   useEffect(() => {
     updatePokemon();
   }, []);
@@ -23,6 +23,8 @@ const PokedexTool = (props) => {
     await setSelectedPokemon(name);
     setMoreInfo(true);
   }
+
+
 
   const clickBack = () => {
     setMoreInfo(false);
