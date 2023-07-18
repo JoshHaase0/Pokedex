@@ -6,7 +6,11 @@ import PokedexTool from './components/pokedexTool/pokedexTool';
 import PokemonTool from './components/pokemonTool/pokemonTool';
 
 const _Pokedex = require("pokeapi-js-wrapper")
-const Pokedex = new _Pokedex.Pokedex();
+const Pokedex = new _Pokedex.Pokedex({
+  cache: true, 
+  timeout: 5 * 1000,
+  cacheImages: true
+});
 
 function App() {
 

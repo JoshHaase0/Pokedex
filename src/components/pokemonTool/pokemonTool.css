@@ -23,7 +23,10 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 400px;
+    padding: 0 20px 0 20px;
+    background-color: rgba(140, 209, 183, 0.85);
     height: 100vh;
+    overflow: auto;
     margin: 0 auto;
 }
 

@@ -19,9 +19,9 @@ const PokedexTool = (props) => {
       {
         (pokedexs.length > 0) ? pokedexs.map((_) => {
           return (
-            <div key={_} className={"pokedexSelector"}>
+            <div key={_} className={"pokedexSelector"} onClick={() => props.setDex(_)}>
               <h3>{_.replace(_[0], _[0].toUpperCase()).replace("-", " ")}</h3>
-              <button onClick={() => props.setDex(_)}>View</button>
+              {/* <button onClick={() => props.setDex(_)}>View</button> */}
             </div>
           )
         }) : null

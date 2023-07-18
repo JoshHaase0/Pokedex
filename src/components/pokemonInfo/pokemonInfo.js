@@ -2,6 +2,8 @@ import './pokemonInfo.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+import err from '../../icons/err.png';
+
 import bug from '../../icons/bug.png';
 import dark from '../../icons/dark.png';
 import dragon from '../../icons/dragon.png';
@@ -82,6 +84,7 @@ const PokemonInfo = (props) => {
         image = pokemon.sprites.front_default;
         break;
     }
+    image = (!image) ? err : image;
     return (
         <div id="pokemonInfoWrapper">
             <div id="info">
