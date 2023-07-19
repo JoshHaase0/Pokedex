@@ -17,11 +17,10 @@ const PokedexTool = (props) => {
   return (
     <div id={"pokedexsWrapper"}>
       {
-        (pokedexs.length > 0) ? pokedexs.map((_) => {
+        (pokedexs.length > 0) ? pokedexs.map((_, i) => {
           return (
-            <div key={_} className={"pokedexSelector"} onClick={() => props.setDex(_)}>
+            <div key={_} className={"pokedexSelector"} onClick={() => props.setDex(_)} data-testid={`pokedex-region${i}`}>
               <p>{_.replace(_[0], _[0].toUpperCase()).replace("-", " ")}</p>
-              {/* <button onClick={() => props.setDex(_)}>View</button> */}
             </div>
           )
         }) : null

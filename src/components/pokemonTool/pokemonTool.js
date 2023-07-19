@@ -1,5 +1,4 @@
 import './pokemonTool.css';
-import PokemonInfo from "../pokemonInfo/pokemonInfo";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import err from '../../icons/err.png';
@@ -7,8 +6,6 @@ import err from '../../icons/err.png';
 const PokedexTool = (props) => {
 
   const [pokemon, setPokemon] = useState([]);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const [moreInfo, setMoreInfo] = useState(false);
 
   useEffect(() => {
     updatePokemon();
@@ -19,18 +16,7 @@ const PokedexTool = (props) => {
     setPokemon(Pokemon.pokemon_entries.map((_) => _.pokemon_species.name));
   }
 
-  const showMoreInfo = async (name) => {
-    await setSelectedPokemon(name);
-    setMoreInfo(true);
-  }
-
-
-
-  const clickBack = () => {
-    setMoreInfo(false);
-  }
-
-  if (!moreInfo && pokemon.length > 0) {
+  if (pokemon.length > 0) {
       document.title = `${props.pokedex.replace(props.pokedex[0], props.pokedex[0].toUpperCase()).replace("-", " ")}`
       return (
         <div id={"pokemonWrapper"}>
@@ -38,9 +24,9 @@ const PokedexTool = (props) => {
             <a onClick={props.back_button} id="back-button">&lt;</a>
           </div>
           {
-            (pokemon.length > 0) ? pokemon.map((_) => {
+            (pokemon.length > 0) ? pokemon.map((_, i) => {
               return (
-                <div key={_} className={"pokemonSelector"} onClick={() => showMoreInfo(_)}>
+                <div key={_} className={"pokemonSelector"} onClick={() => props.showMoreInfo(_)} data-testid={`pokedex-pokemon${i}`}>
                   <h3>{_.replace(_[0], _[0].toUpperCase())}</h3>
                 </div>
               )
@@ -64,8 +50,6 @@ const PokedexTool = (props) => {
           </div>
       </div>
     )
-  } else {
-    return <PokemonInfo pokemon={selectedPokemon} module={props.module} back={clickBack}/>;
   }
 }
 

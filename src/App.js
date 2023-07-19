@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 
 import PokedexTool from './components/pokedexTool/pokedexTool';
 import PokemonTool from './components/pokemonTool/pokemonTool';
+import PokemonInfo from './components/pokemonInfo/pokemonInfo';
 
-const _Pokedex = require("pokeapi-js-wrapper")
-const Pokedex = new _Pokedex.Pokedex({
+import { Pokedex as _Pokedex } from 'pokeapi-js-wrapper';
+
+const Pokedex = new _Pokedex({
   timeout: 5 * 1000,
 });
 
@@ -16,6 +18,8 @@ function App() {
   const [selectedDex, setSelectedDex] = useState(null);
   const [pokemonList, setPokemonList] = useState(null);
   const [valid, setValid] = useState(false);
+  const [viewInfo, setViewInfo] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState("");
 
   useEffect(() => {
     Pokedex.getPokedexs()
@@ -44,12 +48,22 @@ function App() {
   }
 
   const back_button = () => {
-    setValid(false);
+    if (!viewInfo) {
+      setValid(false);
+    } else {
+      setViewInfo(false);
+    }
   }
+
+  const showMoreInfo = async (name) => {
+    await setSelectedPokemon(name);
+    setViewInfo(true);
+  }
+
 
   return (
     <div>
-      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} /> : <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button}/>}
+      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} /> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo}/> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button}/>}
     </div>
   );
 }
