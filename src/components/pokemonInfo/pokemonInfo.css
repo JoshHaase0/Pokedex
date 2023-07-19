@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 100vh;
+    overflow: auto;
 }
 #info {
     background-color: rgba(140, 209, 183, 0.85);
@@ -59,9 +61,16 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    height: auto;
-    overflow: auto;
-
+}
+@media only screen and (max-width: 499px) {
+    #stats {
+        height: 100%;
+    }
+}
+@media only screen and (min-width: 500px) {
+    #stats {
+        height: auto;
+    }
 }
 
 .icon {
@@ -82,6 +91,30 @@
     width: auto;
     height: auto;
     margin: 0 auto;
+}
+@media only screen and (min-width: 500px) {
+    #pokemonImg {
+        max-width: 256px;
+        max-height: 256px;
+        min-width: 192px;
+        min-height: 192px;
+    }
+    #pokemonImgWrapper {
+        width: 256px;
+        height: 256px;
+    }
+} 
+@media only screen and (max-width: 499px) {
+    #pokemonImg {
+        max-width: 192px;
+        max-height: 192px;
+        min-width: 128px;
+        min-height: 128px;
+    }
+    #pokemonImgWrapper {
+        width: 192px;
+        height: 192px;
+    }
 }
 #pokemonImgWrapper {
     text-align: center;
