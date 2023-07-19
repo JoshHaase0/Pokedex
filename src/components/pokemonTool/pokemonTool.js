@@ -21,7 +21,7 @@ const PokedexTool = (props) => {
       return (
         <div id={"pokemonWrapper"}>
           <div id={"button-wrapper"}>
-            <a onClick={props.back_button} id="back-button">&lt;</a>
+            <a onClick={props.back_button} id="back-button" data-testid={"back-button"}>&lt;</a>
           </div>
           {
             (pokemon.length > 0) ? pokemon.map((_, i) => {

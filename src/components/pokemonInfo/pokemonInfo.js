@@ -106,7 +106,7 @@ const PokemonInfo = (props) => {
       <div id="pokemonInfoWrapper">
             <div id="info">
                 <div id={"button-wrapper"}>
-                  <a onClick={props.back} id="button">&lt;</a>
+                  <a onClick={props.back} id="button" data-testid={`bbi`}>&lt;</a>
                 </div>
                 <img src={errImage} id={"pokemonImg"} alt={`We ran into an issue!`}/>
                 <p>{errCheck}</p>

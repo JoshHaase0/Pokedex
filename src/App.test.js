@@ -1,4 +1,4 @@
-import { fireEvent, getByTestId, render, screen, waitFor, act } from '@testing-library/react';
+import { fireEvent, getByTestId, render, screen, waitFor, act, cleanup, waitForElementToBeRemoved } from '@testing-library/react';
 
 
 import App from './App';
@@ -148,6 +148,7 @@ describe("Test user inputs", () => {
       render(<App />);
     });
   })
+  afterEach(() => render(<hr/>));
   test("Clicking on a region renders a list of pokemon", async () => {
     await waitFor(async () => {
       fireEvent.click(screen.getByTestId("pokedex-region0"));
