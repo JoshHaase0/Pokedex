@@ -1,4 +1,4 @@
-import { fireEvent, getByTestId, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, getByTestId, render, screen, waitFor, act } from '@testing-library/react';
 
 
 import App from './App';
@@ -49,9 +49,12 @@ jest.mock('pokeapi-js-wrapper', () => {
 
 
 describe("Regions displaying correctly", () => {
-  beforeEach(() => {
-    render(<App />)
+  beforeEach(async () => {
+    await waitFor(() => {
+      render(<App />)
+    })
   })
+  
   test("Displays 'Region'", async () => {
     await waitFor(() => {
       expect(screen.getByText("Region")).toBeInTheDocument();
@@ -64,9 +67,11 @@ describe("Regions displaying correctly", () => {
   })
 });
 describe("Pokemon displaying correctly", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     const dex = new _Pokedex();
-    render(<PokemonTool pokedex={"null"} module={dex} back_button={() => {}} showMoreInfo={() => {}}/>)
+    await waitFor(() => {
+      render(<PokemonTool pokedex={"null"} module={dex} back_button={() => {}} showMoreInfo={() => {}}/>)
+    });
   });
   test("Displays 'Steve'", async () => {
     await waitFor(() => {
@@ -85,9 +90,11 @@ describe("Pokemon displaying correctly", () => {
   })
 });
 describe("Pokemon details display correctly", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     const dex = new _Pokedex();
-    render(<PokemonInfo pokemon={"null"} module={dex} back={() => {}}/>)
+    await waitFor(() => {
+      render(<PokemonInfo pokemon={"null"} module={dex} back={() => {}}/>)
+    });
   });
   test("Displays 'Pikachu'", async () => {
     await waitFor(() => {
@@ -136,8 +143,10 @@ describe("Pokemon details display correctly", () => {
   })
 });
 describe("Test user inputs", () => {
-  beforeEach(() => {
-    render(<App />);
+  beforeEach(async () => {
+    await waitFor(() => {
+      render(<App />);
+    });
   })
   test("Clicking on a region renders a list of pokemon", async () => {
     await waitFor(async () => {

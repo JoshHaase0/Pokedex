@@ -122,15 +122,15 @@ const PokemonInfo = (props) => {
                   <a onClick={props.back} id="button">&lt;</a>
                   <div id="style-selector-wrapper">
                     <select id="style-selector" onChange={updateStyle}>
-                      <option value={pokemon.sprites.front_default}>Default</option>
-                      <option value={pokemon.sprites.front_shiny}>Shiny</option>
-                      <option value={pokemon.sprites.other["dream_world"].front_default}>Dream</option>
-                      <option value={pokemon.sprites.other["home"].front_default}>Home</option>
-                      <option value={pokemon.sprites.other["official-artwork"].front_default}>Official</option>
+                      <option value={pokemon.sprites.front_default} key={"default"}>Default</option>
+                      <option value={pokemon.sprites.front_shiny} key={"shiny"}>Shiny</option>
+                      <option value={pokemon.sprites.other["dream_world"].front_default} key={"dream"}>Dream</option>
+                      <option value={pokemon.sprites.other["home"].front_default} key={"home"}>Home</option>
+                      <option value={pokemon.sprites.other["official-artwork"].front_default} key={"official"}>Official</option>
                       {
-                        altVersions.map((_) => {
+                        altVersions.map((_, i) => {
                           return (
-                            <option value={_.sprite} key={_.name}>{_.name}</option>
+                            <option value={_.sprite} key={`${_.name}${i}`}>{_.name}</option>
                           )
                         })
                       }
