@@ -1,18 +1,16 @@
+
 .pokedexSelector {
-    width: 165px;
-    height: 100px;
     border: 2px solid black;
-    border-radius: 25px;
     transition: background-position 0.3s;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    padding: 1%;
+    justify-content: flex-end;
     background-image: url("../../backgrounds/pokeball.png");
     background-size: 150%;
-    background-position: 20% 50%;
     margin-bottom: 2.5%;
+    background-position: 20% 50%;
+    user-select: none;
 }
 .pokedexSelector:hover {
     background-position: 90% 50%;
@@ -21,6 +19,7 @@
 .pokedexSelector > p {
     font-weight: 0;
     font-size: 100%;
+    position: relative;
     transition: all 0.3s;
 }
 .pokedexSelector:hover > p {
@@ -32,10 +31,34 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     padding: 20px 20px 0 20px;
     background-color: rgba(140, 209, 183, 0.85);
     overflow: auto;
-    height: calc(100vh - 20px);
+    /* height: calc(100vh - 20px); */
     margin: 0 auto;
+}
+@media only screen and (min-width: 500px) {
+    .pokedexSelector {
+        max-width: 165px;
+        min-width: 100px;
+        width: 40%;
+        height: 100px;
+        padding: 1%;
+        border-radius: 25px;
+    }
+}
+@media only screen and (max-width: 499px) {
+    .pokedexSelector {
+        width: 90%;
+        height: 50px;
+        max-width: 90%;
+        min-width: 90%;
+        padding: 0.25%;
+        border-radius: 15px;
+    }
+    .pokedexSelector > p {
+        margin: 0;
+    }
 }
