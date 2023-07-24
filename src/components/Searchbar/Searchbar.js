@@ -19,7 +19,7 @@ const Searchbar = (props) => {
 
 
   const updateQuery = (e) => {
-    setSearchQuery(e.target.value.trim());
+    setSearchQuery(e.target.value.trim().toLowerCase());
   }
 
   return (

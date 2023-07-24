@@ -6,8 +6,7 @@ import { useEffect } from 'react';
 import PokedexTool from './components/pokedexTool/pokedexTool';
 import PokemonTool from './components/pokemonTool/pokemonTool';
 import PokemonInfo from './components/pokemonInfo/pokemonInfo';
-import SearchBar from './components/Searchbar/Searchbar';
-
+import Searchbar from './components/Searchbar/Searchbar';
 
 import { Pokedex as _Pokedex } from 'pokeapi-js-wrapper';
 
@@ -48,11 +47,6 @@ function App() {
     setPokemonList(pokemon.pokemon_entries.map((_) => _.pokemon_species.name));
   }
 
-  const getPokemon = async () => {
-    const pokemon = await Pokedex.getPokedexByName(selectedDex);
-    return pokemon.pokemon_entries.map((_) => _.pokemon_species.name);
-  }
-
   const setSearchTrue = () => {
     setSearch(true);
     setValid(true);
@@ -84,7 +78,7 @@ function App() {
 
   return (
     <div>
-      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} search={setSearchTrue} /> : (search) ? <SearchBar module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button} />}
+      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} search={setSearchTrue} /> : (search) ? <Searchbar module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button} />}
     </div>
   );
 }
