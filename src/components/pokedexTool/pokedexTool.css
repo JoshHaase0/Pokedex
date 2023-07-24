@@ -62,3 +62,24 @@
         margin: 0;
     }
 }
+
+.inactive {
+    display: block;
+}
+.active {
+    display: none;
+}
+#searchButton:hover .inactive {
+    display: none;
+}
+#searchButton:hover .active {
+    display: block;
+}
+#searchButton {
+    margin: 0 calc(100% - 64px);
+    height: 64px;
+    cursor: pointer;
+}
+#searchButton > img {
+    height: 100%;
+}
