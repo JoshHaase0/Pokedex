@@ -1,12 +1,16 @@
 import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useRef } from 'react';
 
 
 import PokedexTool from './components/pokedexTool/pokedexTool';
 import PokemonTool from './components/pokemonTool/pokemonTool';
 import PokemonInfo from './components/pokemonInfo/pokemonInfo';
 import Searchbar from './components/Searchbar/Searchbar';
+
+import { useIsVisible } from './observer/observer';
+
 
 import { Pokedex as _Pokedex } from 'pokeapi-js-wrapper';
 
@@ -86,8 +90,22 @@ function App() {
   return (
     <div>
       {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} search={setSearchTrue} /> : (search) ? <Searchbar module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} updateSavedSearch={updateSavedSearch} savedSearch={savedSearch}/> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button} />}
+
+      <Test_component />
+
     </div>
   );
+}
+
+function Test_component() {
+  const ref = useRef();
+  const isVisible = useIsVisible(ref);
+
+  return (
+    <div ref={ref}>
+      <p>{isVisible ? "visible" : console.log("555")}</p>
+    </div>
+  )
 }
 
 export default App;

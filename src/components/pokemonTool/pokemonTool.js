@@ -1,7 +1,9 @@
 import './pokemonTool.css';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import err from '../../icons/err.png';
+import { useIsVisible } from '../../observer/observer';
 
 const PokedexTool = (props) => {
 
@@ -25,11 +27,10 @@ const PokedexTool = (props) => {
           </div>
           {
             (pokemon.length > 0) ? pokemon.map((_, i) => {
-              return (
-                <div key={_} className={"pokemonSelector"} onClick={() => props.showMoreInfo(_)} data-testid={`pokedex-pokemon${i}`}>
+              return <PokemonTab name={_.replace(_[0], _[0].toUpperCase())} reactKey={_} showMoreInfo={props.showMoreInfo} i={i}/>;
+                {/* <div key={_} className={"pokemonSelector"} onClick={() => props.showMoreInfo(_)} data-testid={`pokedex-pokemon${i}`}>
                   <h3>{_.replace(_[0], _[0].toUpperCase())}</h3>
-                </div>
-              )
+                </div> */}
             }) : null
           }
         </div>
@@ -52,5 +53,18 @@ const PokedexTool = (props) => {
     )
   }
 }
+
+
+const PokemonTab = (props) => {
+  return (
+    <div key={props.reactKey} className={"pokemonSelector"} onClick={() => props.showMoreInfo(props.reactKey)} data-testid={`pokedex-pokemon${props.i}`}>
+      <h3>{props.name}</h3>
+      {
+        // (isVisible) ? console.log(props.name + " is visible") : null
+      }
+    </div>
+  )
+}
+
 
 export default PokedexTool;
