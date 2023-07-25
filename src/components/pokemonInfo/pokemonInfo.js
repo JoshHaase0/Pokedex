@@ -62,12 +62,35 @@ const PokemonInfo = (props) => {
   }, [pokemon]);
   
   const updatePokemon = async (name) => {
-    try {
-      const Pokemon = await props.module.getPokemonByName(name);
-      setPokemon(Pokemon);
-    } catch (e) {
-      setErrCheck(e.message);
-    }
+    props.module.getPokemonByName(name)
+    .then((res) => {
+      setPokemon(res);
+    })
+    .catch(async (e) => {
+      setPokemon(null);
+      setAltStyles([{}]);
+      setErrCheck(null);
+      let error = true;
+      const pokemonList = await props.module.getPokemons();
+      const fullList = pokemonList.results;
+      const getNamesList = fullList.filter((_) => (_.name !== name && _.name.includes(name)));
+      for (let i = 0; i < getNamesList.length; i++) {
+        try {
+          const newInfo = props.module.getPokemonByName(getNamesList[0]);
+          setPokemon(newInfo);
+          error = false;
+        } catch (err) {
+          continue;
+        }
+        if (!error) {
+          break;
+        }
+      }
+      if (error) {
+        setErrCheck(e.message);
+      }
+
+    })
   }
 
   const updateStyle = (e) => {
@@ -115,6 +138,7 @@ const PokemonInfo = (props) => {
     )
   } else if (pokemon) {
     document.title = `${props.pokemon.replace(props.pokemon[0], props.pokemon[0].toUpperCase())}`
+    const pokemonName = pokemon.name.replace(pokemon.name[0], pokemon.name[0].toUpperCase());
     return (
         <div id="pokemonInfoWrapper">
             <div id="info" >
@@ -138,10 +162,12 @@ const PokemonInfo = (props) => {
                   </div>
                 </div>
                 <div id={"pokemonImgWrapper"}>{
-                  (style.includes("https")) ? <img src={style} id={"pokemonImg"} alt={`${style} ${pokemon.name}`}/> : <img src={err} id={"pokemonImg"} alt={`${pokemon.name} does not have this style`}/>
+                  (style === null) ? <img src={err} id={"pokemonImg"} alt={`${pokemon.name} does not have this style`}/> : (!style.includes("https")) ? <img src={err} id={"pokemonImg"} alt={`${pokemon.name} does not have this style`}/> : <img src={style} id={"pokemonImg"} alt={`${style} ${pokemon.name}`}/>
                 }</div>
                 <div id="bottom-section">
-                <h1>{ pokemon.name.replace(pokemon.name[0], pokemon.name[0].toUpperCase()) }</h1>
+                {
+                  (pokemonName.length > 15) ? <h2>{pokemonName}</h2> : <h1>{pokemonName}</h1>
+                }
                 <p>N°{ ("000" + pokemon.id).slice(-4) }</p>
                 <div id="types">
                 {

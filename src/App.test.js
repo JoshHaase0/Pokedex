@@ -13,10 +13,10 @@ jest.mock('pokeapi-js-wrapper', () => {
         getPokedexs: function() {
           return Promise.resolve({results: [{name: "Region"}, {name: "Minecraft "}]})
         },
-        getPokedexByName: function(name) {
+        getPokedexByName: function() {
           return Promise.resolve({pokemon_entries: [{pokemon_species: {name: "Steve"}}, {pokemon_species: {name: "Charizard"}}, {pokemon_species: {name: "Mr. Mime"}}]});
         },
-        getPokemonByName: function(name) {
+        getPokemonByName: function() {
           return Promise.resolve({
             sprites: {
               front_default: "null",

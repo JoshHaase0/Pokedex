@@ -76,10 +76,11 @@
     display: block;
 }
 #searchButton {
-    margin: 0 calc(100% - 64px);
+    width: 100%;
     height: 64px;
     cursor: pointer;
 }
 #searchButton > img {
     height: 100%;
+    margin: 0 auto;
 }

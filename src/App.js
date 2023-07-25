@@ -24,11 +24,16 @@ function App() {
   const [search, setSearch] = useState(true);
   const [backToSearch, setBackToSearch] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState("");
+  const [savedSearch, setSavedSearch] = useState("");
 
   useEffect(() => {
     Pokedex.getPokedexs()
     .then((res) => {
       setPokedexs(res.results);
+    })
+    Pokedex.getPokemonsList()
+    .then((res) => {
+      console.log(res);
     })
   }, []);
 
@@ -75,10 +80,12 @@ function App() {
     }
   }
 
-
+  const updateSavedSearch = (query) => {
+    setSavedSearch(query);
+  }
   return (
     <div>
-      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} search={setSearchTrue} /> : (search) ? <Searchbar module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button} />}
+      {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} search={setSearchTrue} /> : (search) ? <Searchbar module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} updateSavedSearch={updateSavedSearch} savedSearch={savedSearch}/> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button} />}
     </div>
   );
 }
