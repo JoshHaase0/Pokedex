@@ -73,10 +73,10 @@ const PokemonInfo = (props) => {
       let error = true;
       const pokemonList = await props.module.getPokemons();
       const fullList = pokemonList.results;
-      const getNamesList = fullList.filter((_) => (_.name !== name && _.name.includes(name)));
+      const getNamesList = fullList.filter((_) => (_.name !== name && _.name.includes(name)));  
       for (let i = 0; i < getNamesList.length; i++) {
         try {
-          const newInfo = props.module.getPokemonByName(getNamesList[0]);
+          const newInfo = await props.module.getPokemonByName(getNamesList[i].name);
           setPokemon(newInfo);
           error = false;
         } catch (err) {

@@ -90,9 +90,6 @@ function App() {
   return (
     <div>
       {(!valid) ? <PokedexTool pokedexs={pokedexs} module={Pokedex} setDex={setDex} search={setSearchTrue} /> : (search) ? <Searchbar module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} updateSavedSearch={updateSavedSearch} savedSearch={savedSearch}/> : (!viewInfo) ? <PokemonTool pokedex={selectedDex} module={Pokedex} back_button={back_button} showMoreInfo={showMoreInfo} /> : <PokemonInfo pokemon={selectedPokemon} module={Pokedex} back={back_button} />}
-
-      <Test_component />
-
     </div>
   );
 }
